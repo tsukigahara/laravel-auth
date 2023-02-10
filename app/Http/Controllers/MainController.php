@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -13,7 +14,9 @@ class MainController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::orderBy('id', 'desc')->get();
+
+        return view('welcome', compact('projects'));
     }
 
     /**
@@ -45,7 +48,9 @@ class MainController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = Project::find($id);
+
+        return view('show', compact('project'));
     }
 
     /**

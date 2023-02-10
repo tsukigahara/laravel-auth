@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return redirect()->route('projects.index');
+// });
+
+//come faccio a dire di metetre come uri '/' ma quando clicco il progetto vada nella '/projects/{id}
+
+Route::get('/', [MainController::class, 'index'])->name('projects.index');
+Route::get('/projects/{id}', [MainController::class, 'show'])->name('projects.show');
+
+// Route::get('/projects', [MainController::class, 'index'])->name('projects.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,4 +36,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
